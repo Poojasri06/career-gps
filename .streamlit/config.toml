@@ -1,0 +1,30 @@
+[server]
+# Performance settings
+maxUploadSize = 200
+enableWebsocketCompression = true
+port = 8501
+
+[browser]
+# Gather usage stats
+gatherUsageStats = false
+
+[runner]
+# Fast re-run for better performance
+fastReruns = true
+# Enforce serialization of script reruns
+enforceSerializableSessionState = false
+
+[client]
+# Display toolbar in development mode
+toolbarMode = "auto"
+# Show error details
+showErrorDetails = true
+
+[theme]
+# Base theme (will be overridden by custom CSS)
+base = "dark"
+primaryColor = "#2196f3"
+backgroundColor = "#0a1929"
+secondaryBackgroundColor = "#1a237e"
+textColor = "#e3f2fd"
+font = "sans serif"

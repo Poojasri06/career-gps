@@ -1,0 +1,91 @@
+skill_id,skill_name,category,difficulty,learning_time_weeks,prerequisites
+1,Python,Programming,beginner,4,
+2,JavaScript,Programming,beginner,4,
+3,HTML,Web,beginner,2,
+4,CSS,Web,beginner,2,
+5,React,Frontend,intermediate,6,JavaScript
+6,Node.js,Backend,intermediate,5,JavaScript
+7,SQL,Database,beginner,3,
+8,Git,Tools,beginner,2,
+9,Machine Learning,AI/ML,advanced,12,"Python,Statistics"
+10,Statistics,Math,intermediate,8,
+11,Pandas,Data Science,intermediate,3,Python
+12,NumPy,Data Science,intermediate,3,Python
+13,Scikit-learn,AI/ML,intermediate,6,"Python,Machine Learning"
+14,Data Visualization,Data Science,intermediate,4,"Python,Pandas"
+15,Deep Learning,AI/ML,advanced,16,"Machine Learning,Python"
+16,TensorFlow,AI/ML,advanced,10,"Deep Learning,Python"
+17,TypeScript,Programming,intermediate,4,JavaScript
+18,UI/UX Design,Design,intermediate,8,
+19,Responsive Design,Web,intermediate,3,"HTML,CSS"
+20,Redux,Frontend,intermediate,4,React
+21,Java,Programming,intermediate,8,
+22,MongoDB,Database,intermediate,4,SQL
+23,REST APIs,Backend,intermediate,4,"Python,JavaScript"
+24,Microservices,Architecture,advanced,8,"Backend,Docker"
+25,Docker,DevOps,intermediate,4,Linux
+26,Kubernetes,DevOps,advanced,8,Docker
+27,CI/CD,DevOps,intermediate,5,Git
+28,AWS,Cloud,intermediate,10,Linux
+29,Linux,Operating Systems,intermediate,6,
+30,Terraform,Infrastructure,intermediate,6,"Cloud,Linux"
+31,Jenkins,DevOps,intermediate,4,CI/CD
+32,Monitoring,DevOps,intermediate,4,Linux
+33,PyTorch,AI/ML,advanced,10,"Deep Learning,Python"
+34,MLOps,AI/ML,advanced,8,"Machine Learning,Docker"
+35,Cloud Platforms,Cloud,intermediate,8,
+36,React Native,Mobile,intermediate,8,"JavaScript,React"
+37,Flutter,Mobile,intermediate,8,Dart
+38,Dart,Programming,intermediate,5,
+39,iOS,Mobile,advanced,12,"Mobile Development"
+40,Android,Mobile,advanced,12,"Mobile Development"
+41,Mobile UI/UX,Design,intermediate,6,UI/UX Design
+42,Firebase,Backend,intermediate,3,
+43,Azure,Cloud,intermediate,10,
+44,GCP,Cloud,intermediate,10,
+45,Cloud Architecture,Architecture,advanced,12,"Cloud Platforms"
+46,Networking,Infrastructure,intermediate,8,
+47,Security,Security,intermediate,10,
+48,Product Strategy,Product,intermediate,8,
+49,Agile,Methodology,intermediate,4,
+50,User Research,Design,intermediate,6,
+51,Communication,Soft Skills,beginner,continuous,
+52,Wireframing,Design,intermediate,3,
+53,Project Management,Management,intermediate,8,
+54,Market Analysis,Business,intermediate,6,
+55,Stakeholder Management,Management,intermediate,6,
+56,Figma,Design Tools,beginner,3,
+57,Adobe XD,Design Tools,beginner,3,
+58,Prototyping,Design,intermediate,4,UI/UX Design
+59,User Testing,Design,intermediate,4,UX Research
+60,Design Systems,Design,advanced,8,"UI Design"
+61,Excel,Tools,beginner,3,
+62,Tableau,Data Visualization,intermediate,4,"Data Analysis"
+63,Power BI,Data Visualization,intermediate,4,"Data Analysis"
+64,Business Intelligence,Data,intermediate,8,"SQL,Data Analysis"
+65,ETL,Data Engineering,intermediate,6,SQL
+66,Network Security,Security,intermediate,8,Networking
+67,Ethical Hacking,Security,advanced,12,"Network Security"
+68,Firewalls,Security,intermediate,4,Networking
+69,Penetration Testing,Security,advanced,10,"Ethical Hacking"
+70,SIEM,Security,intermediate,6,"Security"
+71,Incident Response,Security,intermediate,6,Security
+72,Cryptography,Security,advanced,8,"Mathematics"
+73,Risk Assessment,Security,intermediate,5,Security
+74,Test Automation,Testing,intermediate,6,Programming
+75,Selenium,Testing,intermediate,5,"Test Automation"
+76,Testing Frameworks,Testing,intermediate,5,Programming
+77,Manual Testing,Testing,beginner,3,
+78,Bug Tracking,Testing,beginner,2,
+79,API Testing,Testing,intermediate,4,REST APIs
+80,Performance Testing,Testing,intermediate,5,Testing
+81,Business Analysis,Business,intermediate,8,
+82,Requirements Gathering,Business,intermediate,5,
+83,Process Modeling,Business,intermediate,6,
+84,Documentation,Communication,beginner,2,
+85,Research Methodology,Research,advanced,12,
+86,Mathematics,Math,intermediate,continuous,
+87,NLP,AI/ML,advanced,10,"Machine Learning"
+88,Computer Vision,AI/ML,advanced,10,"Deep Learning"
+89,Publications,Research,advanced,continuous,
+90,Webpack,Frontend,intermediate,3,JavaScript

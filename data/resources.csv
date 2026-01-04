@@ -1,0 +1,31 @@
+resource_id,skill_name,resource_type,resource_name,url,duration_weeks,difficulty
+1,Python,course,Python for Everybody,https://www.coursera.org/specializations/python,4,beginner
+2,Python,course,Complete Python Bootcamp,https://www.udemy.com/course/complete-python-bootcamp/,5,beginner
+3,JavaScript,course,JavaScript - The Complete Guide,https://www.udemy.com/course/javascript-the-complete-guide/,4,beginner
+4,React,course,React - The Complete Guide,https://www.udemy.com/course/react-the-complete-guide/,6,intermediate
+5,Node.js,course,Node.js Complete Guide,https://www.udemy.com/course/nodejs-the-complete-guide/,5,intermediate
+6,Machine Learning,course,Machine Learning Specialization,https://www.coursera.org/specializations/machine-learning-introduction,12,advanced
+7,SQL,course,SQL for Data Science,https://www.coursera.org/learn/sql-for-data-science,3,beginner
+8,Docker,course,Docker Mastery,https://www.udemy.com/course/docker-mastery/,4,intermediate
+9,AWS,course,AWS Certified Solutions Architect,https://www.udemy.com/course/aws-certified-solutions-architect-associate/,10,intermediate
+10,Data Science,course,IBM Data Science Professional,https://www.coursera.org/professional-certificates/ibm-data-science,16,intermediate
+11,Git,tutorial,Git & GitHub Crash Course,https://www.youtube.com/watch?v=SWYqp7iY_Tc,1,beginner
+12,HTML,tutorial,HTML Full Course,https://www.youtube.com/watch?v=pQN-pnXPaVg,1,beginner
+13,CSS,tutorial,CSS Full Course,https://www.youtube.com/watch?v=1Rs2ND1ryYc,2,beginner
+14,Kubernetes,course,Kubernetes for Developers,https://www.udemy.com/course/kubernetes-for-developers/,8,advanced
+15,TensorFlow,course,TensorFlow Developer Certificate,https://www.coursera.org/professional-certificates/tensorflow-in-practice,12,advanced
+16,UI/UX Design,course,Google UX Design Professional,https://www.coursera.org/professional-certificates/google-ux-design,8,intermediate
+17,Python,project,Build 100 Python Projects,https://github.com/topics/python-projects,4,beginner
+18,React,project,Build 15 React Projects,https://github.com/topics/react-projects,6,intermediate
+19,Machine Learning,project,Kaggle Competitions,https://www.kaggle.com/competitions,8,advanced
+20,Full Stack,project,Full Stack Open Projects,https://fullstackopen.com/,12,intermediate
+21,DevOps,certification,AWS Certified DevOps Engineer,https://aws.amazon.com/certification/certified-devops-engineer-professional/,8,advanced
+22,Cloud,certification,Azure Fundamentals,https://docs.microsoft.com/en-us/learn/certifications/azure-fundamentals/,4,beginner
+23,Data Analysis,course,Google Data Analytics Professional,https://www.coursera.org/professional-certificates/google-data-analytics,6,beginner
+24,Cybersecurity,course,Google Cybersecurity Professional,https://www.coursera.org/professional-certificates/google-cybersecurity,8,intermediate
+25,Product Management,course,Product Management Fundamentals,https://www.udemy.com/course/product-management-fundamentals/,6,intermediate
+26,Agile,certification,Certified ScrumMaster,https://www.scrumalliance.org/get-certified/scrum-master-track/certified-scrummaster,2,intermediate
+27,TypeScript,course,TypeScript Complete Guide,https://www.udemy.com/course/understanding-typescript/,4,intermediate
+28,MongoDB,course,MongoDB Complete Guide,https://www.udemy.com/course/mongodb-the-complete-developers-guide/,4,intermediate
+29,Flutter,course,Flutter & Dart Complete Guide,https://www.udemy.com/course/learn-flutter-dart-to-build-ios-android-apps/,8,intermediate
+30,Figma,tutorial,Figma UI Design Tutorial,https://www.youtube.com/watch?v=FTFaQWZBqQ8,2,beginner
