@@ -7,6 +7,8 @@ import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
 import streamlit as st
+import os
+import sys
 
 from services.career_matcher import CareerMatcher
 from services.daily_learning import DailyLearningPlan
@@ -719,6 +721,11 @@ def render_readiness(skill_gap_analyzer, readiness_calculator, simulator):
     fig.update_layout(height=280, showlegend=False)
     st.plotly_chart(fig, use_container_width=True)
     st.info(score["interpretation"])
+    # Show generated explanation (why + next steps) when available
+    explanation = score.get('explanation') or (baseline.get('readiness_score', {}).get('explanation') if baseline else None)
+    if explanation:
+        with st.expander("Why this score and next steps", expanded=False):
+            st.write(explanation)
 
     st.markdown("---")
     st.markdown("**Priority skills to learn first**")
@@ -819,6 +826,15 @@ def render_simulator(simulator):
             f"Δ {result['changes']['time_change']:+.0f} weeks",
         )
         st.write("Risk:", result["risk_level"])
+        # Surface explanation and what-if summary when available
+        explanation = result.get('readiness_score', {}).get('explanation')
+        what_if = result.get('what_if_summary')
+        if what_if:
+            with st.expander("What-if summary", expanded=True):
+                st.write(what_if)
+        if explanation:
+            with st.expander("Why this result and next steps", expanded=False):
+                st.write(explanation)
         if result.get("warning"):
             st.warning(result["warning"])
         if result.get("benefit"):
@@ -1119,3 +1135,94 @@ elif nav_choice == "Settings":
 
 st.markdown("---")
 st.caption("Career GPS™ — Adaptive career guidance, skill-gap navigation, and readiness simulation.")
+
+
+def _run_console_cli(skill_extractor, career_matcher, simulator):
+    """Simple console loop: get skills, choose career, ask what-if questions."""
+    print("Welcome to Career GPS (console mode). Type 'exit' to quit.")
+
+    skills_input = input("Enter your skills (comma-separated or free text): ").strip()
+    if not skills_input or skills_input.lower() in ("exit", "quit"):
+        print("Goodbye.")
+        return
+
+    # Extract skills
+    skills = skill_extractor.extract_from_list(skills_input) if ',' in skills_input else skill_extractor.extract_from_text(skills_input)
+    if not skills:
+        print("No skills detected. Exiting.")
+        return
+
+    print(f"Detected {len(skills)} skills: {', '.join(skills[:10])}")
+
+    # Show career matches
+    matches = career_matcher.match_careers(skills, '', top_n=5)
+    print("Top career matches:")
+    for i, m in enumerate(matches, 1):
+        print(f"{i}. {m['role_name']} — Match {m['match_score']:.1f}% — Missing {len(m['missing_skills'])}")
+
+    choice = input("Choose a career number (1–5) or '1' by default: ").strip()
+    try:
+        idx = int(choice) - 1 if choice else 0
+        chosen = matches[idx]
+    except Exception:
+        chosen = matches[0]
+
+    baseline = simulator.create_baseline(skills, chosen)
+    print(f"Baseline readiness for {chosen['role_name']}: {baseline['readiness_score']['overall_score']} — {baseline['readiness_score'].get('interpretation','')}")
+    if baseline['readiness_score'].get('explanation'):
+        print('Explanation:', baseline['readiness_score']['explanation'])
+
+    # Interactive queries
+    while True:
+        q = input("Ask Career GPS: ").strip()
+        if not q or q.lower() in ('exit', 'quit'):
+            print("Exiting console mode. Goodbye.")
+            break
+
+        lower = q.lower()
+        # If user asks a what-if about learning skills
+        if 'learn' in lower or 'what if' in lower:
+            # Attempt to parse skills after 'learn' or after ':'
+            skills_to_try = None
+            if 'learn' in lower:
+                try:
+                    skills_to_try = q.split('learn', 1)[1].strip(' :').strip()
+                except Exception:
+                    skills_to_try = None
+            if (not skills_to_try) and ':' in q:
+                skills_to_try = q.split(':', 1)[1].strip()
+
+            if not skills_to_try:
+                skills_to_try = input("Enter skills to simulate (comma-separated): ").strip()
+
+            new_skills = [s.strip() for s in skills_to_try.split(',') if s.strip()]
+            if not new_skills:
+                print("No skills provided.")
+                continue
+
+            if len(new_skills) == 1 and hasattr(simulator, 'simulate_what_if_learn'):
+                res = simulator.simulate_what_if_learn(baseline, new_skills[0], chosen)
+            else:
+                res = simulator.simulate_add_skills(baseline, new_skills, chosen)
+            # Print concise summary
+            summary = res.get('what_if_summary') or res.get('readiness_score', {}).get('explanation') or ''
+            print('\n--- What-If Result ---')
+            print(summary)
+            print('After score:', res['readiness_score']['overall_score'])
+            print('Change:', res['changes'].get('score_change'))
+            print('---------------------\n')
+            continue
+
+        if lower in ('show baseline', 'baseline', 'status'):
+            rs = baseline['readiness_score']
+            print(f"Baseline: {rs['overall_score']} | {rs.get('grade')}\n{rs.get('explanation','')}")
+            continue
+
+        print("I didn't understand that. Try: 'What if I learn X', 'show baseline', or 'exit'.")
+
+
+if __name__ == '__main__' and os.environ.get('CAREER_GPS_CLI') == '1':
+    try:
+        _run_console_cli(skill_extractor, career_matcher, simulator)
+    except Exception as e:
+        print('Console mode failed:', e)

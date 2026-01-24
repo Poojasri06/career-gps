@@ -9,38 +9,57 @@
       "notification_time": "09:00"
     },
     "profile": {
-      "name": "poojasri",
+      "name": "poojasri kumar",
       "education": "Bachelor's Degree",
-      "experience_level": "Fresh Graduate",
-      "major": "artificial intelligence and machine learning",
-      "career_goal": "ai-engineer, ml-engineer, computer vision",
-      "interests": "",
+      "experience_level": "Student",
+      "major": "Artificial intelligence and machine learning",
+      "career_goal": "AI-engineer, software engineer",
+      "interests": "ai",
       "skills": [
-        "full stack",
-        "Computer Vision",
-        "Deep Learning",
+        "CSS",
+        "JavaScript",
+        "ml techniques",
+        "dbms",
+        "dl",
+        "neural network",
+        "ai-algorithms",
         "HTML",
         "Python",
         "ai"
       ],
       "skills_categorized": {
-        "Other": [
-          "full stack",
-          "ai"
-        ],
-        "AI/ML": [
-          "Computer Vision",
-          "Deep Learning"
-        ],
         "Web": [
+          "CSS",
           "HTML"
         ],
         "Programming": [
+          "JavaScript",
           "Python"
+        ],
+        "Other": [
+          "ml techniques",
+          "dbms",
+          "dl",
+          "neural network",
+          "ai-algorithms",
+          "ai"
         ]
       },
-      "updated_at": "2025-12-30T10:50:01.456101"
+      "updated_at": "2026-01-20T11:25:32.234287"
     },
+    "career_history": [],
+    "learning_progress": {}
+  },
+  "dharshiniarivalagan@gmail.com": {
+    "name": "dharshini",
+    "password": "8d2ee25f1cefd489081d65e28baf953aec6ca2ee7ffbded569e8025980b020b9",
+    "user_type": "student",
+    "created_at": "2026-01-20T10:01:41.201180",
+    "preferences": {
+      "email_notifications": true,
+      "notification_time": "09:00"
+    },
+    "profile": null,
     "career_history": [],
     "learning_progress": {}
   }
