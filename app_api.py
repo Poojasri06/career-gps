@@ -8,6 +8,7 @@ from services.career_matcher import CareerMatcher
 from services.skill_gap import SkillGapAnalyzer
 from services.readiness_score import ReadinessScoreCalculator
 from services.simulator import CareerSimulator
+from services.gen_ai import generate_explanation_for_score, generate_learning_plan, answer_chat
 
 app = FastAPI(title="Career GPS API")
 
@@ -55,6 +56,13 @@ def readiness(req: ReadinessRequest):
 
         gap = gap_analyzer.analyze_gap(req.skills, career)
         score = readiness_calc.calculate_score(gap)
+        # enhance explanation using Gen-AI when available
+        try:
+            enhanced = generate_explanation_for_score(score, gap)
+            if enhanced:
+                score['explanation'] = enhanced
+        except Exception:
+            pass
         return {"gap_analysis": gap, "readiness": score}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
@@ -116,10 +124,15 @@ def chat(req: ChatRequest):
         sim = simulator.simulate_add_skills(baseline, new_skills, career)
         return {"type": "what_if_learn", "simulation": sim}
 
-    # Otherwise return readiness if possible
+    # Otherwise attempt a generative answer or return readiness if possible
     if career:
         gap = gap_analyzer.analyze_gap(skills, career)
         score = readiness_calc.calculate_score(gap)
-        return {"type": "readiness", "gap": gap, "readiness": score}
+        # use gen-ai to answer the chat prompt enriched with context
+        try:
+            reply = answer_chat(prompt, skills, career, gap)
+            return {"type": "chat", "reply": reply, "gap": gap, "readiness": score}
+        except Exception:
+            return {"type": "readiness", "gap": gap, "readiness": score}
 
     return {"type": "note", "message": "I can simulate learning or compute readiness. Provide skills and optionally a career."}

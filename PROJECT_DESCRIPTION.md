@@ -60,6 +60,8 @@ Next Steps to make this a fuller Gen-AI Platform
 - Provide an SDK or client library that wraps the API for easy integration.
 - Add more API endpoints: `/recommendations`, `/roadmap`, `/daily-plan`, and webhooks for email notifications.
 
+- Gen-AI features: LLM-backed explanations, chat responses, and learning-plan generation. The project now includes a lightweight LLM wrapper (`services/llm.py`) and `services/gen_ai.py` which can augment readiness explanations and produce short learning plans via an LLM (OpenAI if `OPENAI_API_KEY` is set). The FastAPI endpoints `/readiness` and `/chat` are enhanced to return richer, generative text when available.
+
 License
 
 Add a LICENSE file (recommended: MIT) and update repository metadata.
