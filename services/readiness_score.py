@@ -67,7 +67,7 @@ class ReadinessScoreCalculator:
             consistency_score * self.weights['learning_consistency']
         )
         
-        return {
+        score_data = {
             'overall_score': round(final_score, 1),
             'breakdown': {
                 'skill_coverage': round(coverage_score, 1),
@@ -78,6 +78,14 @@ class ReadinessScoreCalculator:
             'grade': self._get_grade(final_score),
             'interpretation': self._interpret_score(final_score)
         }
+
+        # Add human-readable explanation (why + next steps)
+        try:
+            score_data['explanation'] = self.generate_explanation(score_data, gap_analysis)
+        except Exception:
+            score_data['explanation'] = score_data['interpretation']
+
+        return score_data
     
     def _get_grade(self, score):
         """Convert numerical score to letter grade"""
@@ -105,7 +113,7 @@ class ReadinessScoreCalculator:
         else:
             return "Beginning journey. Consider building foundational skills first."
     
-    def update_score_after_simulation(self, current_score_data, simulation_changes):
+    def update_score_after_simulation(self, current_score_data, simulation_changes, gap_analysis=None):
         """
         Update readiness score after a what-if simulation
         
@@ -140,13 +148,55 @@ class ReadinessScoreCalculator:
             breakdown['learning_consistency'] * self.weights['learning_consistency']
         )
         
-        return {
+        updated = {
             'overall_score': round(new_overall, 1),
             'breakdown': breakdown,
             'grade': self._get_grade(new_overall),
             'interpretation': self._interpret_score(new_overall),
             'change_from_baseline': round(new_overall - current_score_data['overall_score'], 1)
         }
+
+        try:
+            # If gap analysis provided, produce an explanation using latest gaps
+            updated['explanation'] = self.generate_explanation(updated, gap_analysis or {})
+        except Exception:
+            updated['explanation'] = updated['interpretation']
+
+        return updated
+
+    def generate_explanation(self, score_data, gap_analysis):
+        """Produce a concise human-readable explanation: why the score is at this level and next steps."""
+        parts = []
+
+        # Why: primary drivers
+        breakdown = score_data.get('breakdown', {})
+        if breakdown:
+            sorted_drivers = sorted(breakdown.items(), key=lambda x: x[1], reverse=True)
+            top = sorted_drivers[0][0] if sorted_drivers else None
+            parts.append(f"Why: Top contributor is {top.replace('_', ' ')} ({breakdown.get(top, 0):.0f}%).")
+
+        # Mention important missing skills if available
+        missing = gap_analysis.get('missing_skills', []) if isinstance(gap_analysis, dict) else []
+        priority = gap_analysis.get('priority_skills', []) if isinstance(gap_analysis, dict) else []
+        if priority:
+            parts.append(f"Next steps: Prioritize {', '.join(priority[:3])} to reduce critical gaps.")
+        elif missing:
+            parts.append(f"Next steps: Learn {missing[:3]} to improve coverage.")
+
+        # Give a short path forward based on weakest area
+        weakest = sorted(breakdown.items(), key=lambda x: x[1])[0][0] if breakdown else None
+        if weakest == 'skill_coverage':
+            parts.append("Focus on learning missing skills and converting partial skills to known.")
+        elif weakest == 'skill_depth':
+            parts.append("Deepen mastery with projects and practical exercises for partial skills.")
+        elif weakest == 'skill_importance':
+            parts.append("Prioritize high-importance skills that employers expect.")
+        elif weakest == 'learning_consistency':
+            parts.append("Establish a steady learning schedule and track small wins.")
+
+        # Combine
+        explanation = ' '.join(parts)
+        return explanation
     
     def compare_scores(self, scores_list):
         """

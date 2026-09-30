@@ -114,7 +114,8 @@ class CareerSimulator:
         
         modified_score = self.score_calculator.update_score_after_simulation(
             baseline['readiness_score'],
-            simulation_changes
+            simulation_changes,
+            modified_gap
         )
         
         simulation_result = {
@@ -175,7 +176,8 @@ class CareerSimulator:
         
         modified_score = self.score_calculator.update_score_after_simulation(
             baseline['readiness_score'],
-            simulation_changes
+            simulation_changes,
+            modified_gap
         )
         
         simulation_result = {
@@ -223,7 +225,8 @@ class CareerSimulator:
         
         modified_score = self.score_calculator.update_score_after_simulation(
             baseline['readiness_score'],
-            simulation_changes
+            simulation_changes,
+            modified_gap
         )
         
         simulation_result = {
@@ -279,8 +282,28 @@ class CareerSimulator:
             },
             'benefit': f'Adding {len(new_skills)} skills improves readiness significantly'
         }
+        # Provide a short human-friendly summary for what-if queries
+        try:
+            before = baseline['readiness_score']['overall_score']
+            after = modified_score['overall_score']
+            delta = round(after - before, 1)
+            moved = simulation_result['changes']['skills_moved_to_known']
+            summary = f"If you learn {', '.join(new_skills)}, your readiness score would change from {before} to {after} ({delta:+})."
+            if moved:
+                summary += f" Skills that would move to known: {', '.join(moved)}."
+            # attach explanation returned by readiness calculator if present
+            explanation = modified_score.get('explanation')
+            if explanation:
+                summary += ' ' + explanation
+            simulation_result['what_if_summary'] = summary
+        except Exception:
+            simulation_result['what_if_summary'] = ''
         
         return simulation_result
+
+    def simulate_what_if_learn(self, baseline, skill, career_match):
+        """Convenience wrapper: "If I learn X skill, how does my readiness change?"""
+        return self.simulate_add_skills(baseline, [skill], career_match)
     
     def compare_simulations(self, simulations):
         """
